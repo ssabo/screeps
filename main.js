@@ -19,13 +19,12 @@ module.exports.loop = function () {
 
 		switch (creep.memory.role){
 			case 'harvester':
-				harvester.run(creep, spawn);
+				harvester.run(creep);
 				break;
 			case 'upgrader':
 				upgrader.run(creep);
 				break;
 			case 'builder':
-				//harvester.run(creep, spawn);
 				builder.run(creep);
 				break;
 			case 'repairer':

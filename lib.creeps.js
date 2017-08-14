@@ -30,6 +30,14 @@ var findClosestRepairableStructure = function(creep){
 	return structure;
 }
 
+var findClosestEnergyDepotNotFull = function(creep){
+	structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+	 	filter: (s) => s.energy < s.energyCapacity
+	});
+
+	return structure;
+}
+
 var harvest = function(creep, target){
 	if (creep.harvest(target) == ERR_NOT_IN_RANGE){
 		creep.moveTo(target, style.path);
@@ -76,6 +84,7 @@ module.exports = {
 	findRandomEnergySource: findRandomEnergySource,
 	findClosestConstructionSite: findClosestConstructionSite,
 	findClosestRepairableStructure: findClosestRepairableStructure,
+	findClosestEnergyDepotNotFull: findClosestEnergyDepotNotFull,
 	build: build,
 	harvest: harvest,
 	repair: repair,

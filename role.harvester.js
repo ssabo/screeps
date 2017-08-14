@@ -2,9 +2,11 @@ var libcreeps = require('lib.creeps');
 var builder = require('role.builder');
 
 module.exports = {
-	run: function(creep, transferTarget){
+	run: function(creep){
 
-		if (transferTarget.energy == transferTarget.energyCapacity){
+		energyDepot = libcreeps.findClosestEnergyDepotNotFull(creep);
+
+		if (!energyDepot){
 			builder.run(creep);
 			return;
 		}
@@ -19,7 +21,7 @@ module.exports = {
 
 			libcreeps.harvest(creep, source);
 		} else {
-			libcreeps.transfer(creep, transferTarget);
+			libcreeps.transfer(creep, energyDepot);
 		}
 	}
 }
