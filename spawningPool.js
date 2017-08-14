@@ -13,25 +13,47 @@ module.exports = {
 		// console.log("Builders: " + libcreeps.countByRole('builder'));
 		// console.log("Upgraders: " + libcreeps.countByRole('upgrader'));
 
+		// If the spawn isn't at max energy, just do nothing
 		if (spawn.energy != spawn.energyCapacity){
 			return;
 		}
 
-		roles = ['harvester', 'builder', 'upgrader'];
+		roles = ['harvester', 'repairer', 'builder', 'upgrader'];
+
+
+		// First check if any roles have less than min workers
 		for (let i in roles){
 			role = roles[i];
-			console.log(role);
 
 			count = libcreeps.countByRole(role);
-			if(count > conf[role].max){
+
+			if (count < conf[role].min){
+				spawnCreep(role, spawn);
+				return;
+			}
+		}
+
+		// Since we have the min number of workers in all roles, start going towards the target
+		for (let i in roles){
+			role = roles[i];
+
+			count = libcreeps.countByRole(role);
+
+			if (count < conf[role].desired){
+				spawnCreep(role, spawn);
+				return;
+			}
+		}
+
+		// Log if we have too many workers in a given role.
+		for (let i in roles){
+			role = roles[i];
+
+			count = libcreeps.countByRole(role);
+
+			if (count > conf[role].max){
 				console.log("Too many creeps in role " + role);
 				continue;
-			} else if (count < conf[role].min){
-				spawnCreep(role, spawn);
-				return;
-			} else if (count < conf[role].desired){
-				spawnCreep(role, spawn);
-				return;
 			}
 		}
 	},

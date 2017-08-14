@@ -1,8 +1,8 @@
 module.exports = {
 	harvester: {
-		min: 5,
+		min: 10,
 		max: 20,
-		desired: 10
+		desired: 15
 	},
 	upgrader: {
 		min: 5,
@@ -13,5 +13,10 @@ module.exports = {
 		min: 5,
 		max: 20,
 		desired: 5
-	}
+	},
+	repairer: {
+		min: 1,
+		max: 20,
+		desired: 2
+	},
 }

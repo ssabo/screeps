@@ -3,9 +3,9 @@ var spawningPool = require('spawningPool');
 var harvester = require('role.harvester');
 var upgrader = require('role.upgrader');
 var builder = require('role.builder');
+var repairer = require('role.repairer');
 
 var screepsplus = require('screepsplus');
-
 
 
 module.exports.loop = function () {
@@ -27,6 +27,9 @@ module.exports.loop = function () {
 			case 'builder':
 				//harvester.run(creep, spawn);
 				builder.run(creep);
+				break;
+			case 'repairer':
+				repairer.run(creep);
 				break;
 			default:
 				creep.say('No role!', false);

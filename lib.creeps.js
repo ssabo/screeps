@@ -1,13 +1,7 @@
 var style = require('lib.style');
 
 var countByRole = function(role){
-	count = 0;
-	for (var name in Game.creeps){
-		if (Game.creeps[name].memory.role == role){
-			count += 1;
-		}
-	}
-	return count;
+	return _.sum(Game.creeps, (c) => c.memory.role == role);
 }
 
 var findClosestEnergySource = function(creep){
@@ -28,6 +22,14 @@ var findClosestConstructionSite = function(creep){
 	return target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
 }
 
+var findClosestRepairableStructure = function(creep){
+	var structure = creep.pos.findClosestByPath(FIND_STRUCTURES,{
+		filter: (s) => s.hits < s.hitsMax
+	})
+
+	return structure;
+}
+
 var harvest = function(creep, target){
 	if (creep.harvest(target) == ERR_NOT_IN_RANGE){
 		creep.moveTo(target, style.path);
@@ -38,6 +40,16 @@ var build = function(creep, target){
 	switch (creep.build(target)){
 		case ERR_NOT_IN_RANGE:
 			creep.moveTo(target, style.path);
+			break;
+		default:
+			break;
+	}
+}
+
+var repair = function(creep, structure){
+	switch (creep.repair(structure)){
+		case ERR_NOT_IN_RANGE:
+			creep.moveTo(structure, style.path);
 			break;
 		default:
 			break;
@@ -63,7 +75,9 @@ module.exports = {
 	findClosestEnergySource: findClosestEnergySource,
 	findRandomEnergySource: findRandomEnergySource,
 	findClosestConstructionSite: findClosestConstructionSite,
+	findClosestRepairableStructure: findClosestRepairableStructure,
 	build: build,
 	harvest: harvest,
+	repair: repair,
 	transfer: transfer,
 }
