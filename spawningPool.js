@@ -10,8 +10,8 @@ module.exports = {
 	run: function (spawn) {
 
 		console.log("Harvesters: " + libcreeps.countByRole('harvester'));
-		console.log("Upgraders: " + libcreeps.countByRole('upgrader'));
 		console.log("Builders: " + libcreeps.countByRole('builder'));
+		console.log("Upgraders: " + libcreeps.countByRole('upgrader'));
 
 		if (spawn.energy != spawn.energyCapacity){
 			return;

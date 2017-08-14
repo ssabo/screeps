@@ -14,8 +14,8 @@ module.exports = {
 		}
 
 		if (creep.carry.energy < creep.carryCapacity){
-			//var source = Game.getObjectById(creep.memory.targetSource);
-			var source = libcreeps.findClosestEnergySource(creep);
+			var source = Game.getObjectById(creep.memory.targetSource);
+			//var source = libcreeps.findClosestEnergySource(creep);
 
 			libcreeps.harvest(creep, source);
 		} else {
