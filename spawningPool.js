@@ -2,16 +2,16 @@ var conf = require('conf');
 var libcreeps = require('lib.creeps');
 
 var spawnCreep = function(role, spawn){
-	new_creep = spawn.createCreep([WORK, CARRY, MOVE], undefined, {role: role});
+	new_creep = spawn.createCreep([WORK, CARRY, MOVE, MOVE], undefined, {role: role});
 	console.log("Spawning: " + new_creep + " Role: " + role);
 }
 
 module.exports = {
 	run: function (spawn) {
 
-		console.log("Harvesters: " + libcreeps.countByRole('harvester'));
-		console.log("Builders: " + libcreeps.countByRole('builder'));
-		console.log("Upgraders: " + libcreeps.countByRole('upgrader'));
+		// console.log("Harvesters: " + libcreeps.countByRole('harvester'));
+		// console.log("Builders: " + libcreeps.countByRole('builder'));
+		// console.log("Upgraders: " + libcreeps.countByRole('upgrader'));
 
 		if (spawn.energy != spawn.energyCapacity){
 			return;
