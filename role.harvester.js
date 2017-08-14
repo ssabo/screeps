@@ -1,27 +1,25 @@
-var transfer = require('lib.transfer');
-var styles = require('lib.style');
 var libcreeps = require('lib.creeps');
-var path_style = styles['path'];
-
+var builder = require('role.builder');
 
 module.exports = {
 	run: function(creep, transferTarget){
+
+		if (transferTarget.energy == transferTarget.energyCapacity){
+			builder.run(creep);
+			return;
+		}
 
 		if (! creep.memory.targetSource){
 			creep.memory.targetSource = libcreeps.findRandomEnergySource(creep);
 		}
 
 		if (creep.carry.energy < creep.carryCapacity){
-			//var source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-			var source = Game.getObjectById(creep.memory.targetSource);
+			//var source = Game.getObjectById(creep.memory.targetSource);
+			var source = libcreeps.findClosestEnergySource(creep);
 
-			//creep.say('Harvest', false);
-
-			if (creep.harvest(source) == ERR_NOT_IN_RANGE){
-				creep.moveTo(source, path_style);
-			}
+			libcreeps.harvest(creep, source);
 		} else {
-			transfer.run(creep, transferTarget);
+			libcreeps.transfer(creep, transferTarget);
 		}
 	}
 }

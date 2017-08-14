@@ -1,9 +1,10 @@
 var spawningPool = require('spawningPool');
-var reaper = require('reaper');
-
 
 var harvester = require('role.harvester');
 var upgrader = require('role.upgrader');
+var builder = require('role.builder');
+
+var screepsplus = require('screepsplus');
 
 
 
@@ -11,7 +12,7 @@ module.exports.loop = function () {
 
 	var spawn = Game.spawns.Spawn1;
 	spawningPool.run(spawn);
-	reaper.run();
+	spawningPool.reaper();
 
 	for (let name in Game.creeps){
 		creep = Game.creeps[name];
@@ -23,8 +24,14 @@ module.exports.loop = function () {
 			case 'upgrader':
 				upgrader.run(creep);
 				break;
+			case 'builder':
+				//harvester.run(creep, spawn);
+				builder.run(creep);
+				break;
 			default:
-				creep.say('No role assigned', false);
+				creep.say('No role!', false);
 		}
 	}
+
+	screepsplus.collect_stats();
 }
