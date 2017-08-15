@@ -1,5 +1,5 @@
 var libcreeps = require('lib.creeps');
-var builder = require('role.upgrader');
+var upgrader = require('role.upgrader');
 
 module.exports = {
 	run: function(creep){
