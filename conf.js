@@ -29,7 +29,7 @@ var conf = {
 	},
 	builder: {
 		min: 5,
-		desired: 10,
+		desired: 7,
 		max: 20,
 	},
 	repairer: {

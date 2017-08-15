@@ -1,9 +1,11 @@
 var conf = require('conf');
 var libcreeps = require('lib.creeps');
 
+const CREEP_BASE_SIZE = 250
+
 var spawnCreep = function(role, spawn){
 
-	bodySize = Math.floor(spawn.room.energyAvailable / 250);
+	bodySize = Math.floor(spawn.room.energyAvailable / CREEP_BASE_SIZE);
 
 	body = [];
 	for ( i = 0; i < bodySize; i++){
@@ -26,26 +28,27 @@ module.exports = {
 		// }
 
 		// If the room doesn't have enough energy to spawn a single size creep, then move on
-		if (spawn.room.energyAvailable < 250 ){
+		if (spawn.room.energyAvailable < CREEP_BASE_SIZE ){
 			return;
 		}
-
 
 		// Spawn single size creeps since we fell below the min count for this role.
 		for (let i in roles){
 			role = roles[i];
 
+
 			count = libcreeps.countByRole(role);
 
 			if (count < conf[role].min){
 				spawnCreep(role, spawn);
+				console.log("Min Spawn " + role);
 				return;
 			}
 		}
 
 		// If the room is at enough energy for double sized creeps and we have met the conditions
 		// for the minimum number of creeps, spawn double sized creeps
-		if (spawn.room.energyAvailable <= 400){
+		if (spawn.room.energyAvailable < (CREEP_BASE_SIZE * 2)){
 			return;
 		}
 
@@ -58,6 +61,7 @@ module.exports = {
 
 			if (count < conf[role].desired){
 				spawnCreep(role, spawn);
+				console.log("Desired Spawn " + role);
 				return;
 			}
 		}
@@ -76,6 +80,7 @@ module.exports = {
 
 			if (count < conf[role].max){
 				spawnCreep(role, spawn);
+				console.log("Max Spawn " + role);
 				continue;
 			}
 		}
