@@ -1,5 +1,5 @@
 var libcreeps = require('lib.creeps');
-var builder = require('role.builder');
+var builder = require('role.upgrader');
 
 module.exports = {
 	run: function(creep){
@@ -7,7 +7,7 @@ module.exports = {
 		energyDepot = libcreeps.findClosestEnergyDepotNotFull(creep);
 
 		if (!energyDepot){
-			builder.run(creep);
+			upgrader.run(creep);
 			return;
 		}
 

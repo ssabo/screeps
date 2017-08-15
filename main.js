@@ -4,6 +4,7 @@ var harvester = require('role.harvester');
 var upgrader = require('role.upgrader');
 var builder = require('role.builder');
 var repairer = require('role.repairer');
+var wallrepairer = require('role.wallrepairer');
 
 var screepsplus = require('screepsplus');
 
@@ -29,6 +30,9 @@ module.exports.loop = function () {
 				break;
 			case 'repairer':
 				repairer.run(creep);
+				break;
+			case 'wallrepairer':
+				wallrepairer.run(creep);
 				break;
 			default:
 				creep.say('No role!', false);
