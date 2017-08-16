@@ -31,10 +31,11 @@ var findClosestRepairableStructure = function(creep){
 }
 
 var findClosestRepairableStructureNotWall = function(creep){
-	var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+	var structure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
 		filter: (s) => s.hits < s.hitsMax &&
 			(s.structureType != STRUCTURE_WALL || s.structureType == STRUCTURE_RAMPART)
-	})
+	});
+	return structure;
 }
 
 var findRepairableWall = function(creep){

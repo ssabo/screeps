@@ -37,6 +37,7 @@ module.exports.loop = function () {
 				builder.run(creep);
 				break;
 			case 'repairer':
+				//creep.say(creep.memory.role);
 				repairer.run(creep);
 				break;
 			case 'wallrepairer':
