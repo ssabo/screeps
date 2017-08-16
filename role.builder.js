@@ -1,11 +1,13 @@
 var libcreeps = require('lib.creeps');
-var upgrader = require('role.upgrader');
+//var upgrader = require('role.upgrader');
+var repairer = require('role.repairer');
 
 module.exports = {
 	run: function(creep){
 
 		if (! creep.room.find(FIND_CONSTRUCTION_SITES).length){
-			upgrader.run(creep);
+			//upgrader.run(creep);
+			repairer.run(creep);
 			return;
 		}
 

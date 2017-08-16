@@ -1,12 +1,14 @@
 var libcreeps = require('lib.creeps');
-var builder = require('role.builder');
+//var builder = require('role.builder');
+var upgrader = require('role.upgrader');
 
 module.exports = {
 	run: function(creep){
 
 		structure = libcreeps.findClosestRepairableStructureNotWall(creep);
 		if (! structure){
-			builder.run(creep);
+			//builder.run(creep);
+			upgrader.run(creep);
 			return;
 		}
 

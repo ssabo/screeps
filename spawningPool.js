@@ -1,7 +1,7 @@
 var conf = require('conf');
 var libcreeps = require('lib.creeps');
 
-const CREEP_BASE_SIZE = 250
+const CREEP_BASE_SIZE = 300;
 
 var spawnCreep = function(role, spawn){
 
@@ -10,9 +10,10 @@ var spawnCreep = function(role, spawn){
 	body = [];
 	for ( i = 0; i < bodySize; i++){
 		body.push(WORK);
+		body.push(WORK);
 		body.push(CARRY);
 		body.push(MOVE);
-		body.push(MOVE);
+		//body.push(MOVE);
 	}
 
 	new_creep = spawn.createCreep(body, undefined, {role: role});
@@ -52,6 +53,7 @@ module.exports = {
 			return;
 		}
 
+
 		// Since we have the min number of workers in all roles, start going towards the desired count
 		// but with double size creeps
 		for (let i in roles){
@@ -68,7 +70,8 @@ module.exports = {
 
 
 		// If the room is at max energy and the previous conditions are met, spawn max size creeps
-		if (spawn.room.energyAvailable != spawn.room.energyCapacityAvailable){
+		// if (spawn.room.energyAvailable != spawn.room.energyCapacityAvailable){
+		if (spawn.room.energyAvailable < (CREEP_BASE_SIZE * 3)) {
 			return;
 		}
 
