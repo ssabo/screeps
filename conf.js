@@ -18,9 +18,9 @@
 
 var conf = {
 	harvester: {
-		min: 7,
-		desired: 10,
-		max: 15,
+		min: 4,
+		desired: 7,
+		max: 10,
 	},
 	upgrader: {
 		min: 3,
@@ -28,18 +28,18 @@ var conf = {
 		max: 10,
 	},
 	builder: {
-		min: 5,
-		desired: 7,
-		max: 20,
+		min: 3,
+		desired: 5,
+		max: 10,
 	},
 	repairer: {
-		min: 5,
-		desired: 7,
+		min: 2,
+		desired: 4,
 		max: 10,
 	},
 	wallrepairer: {
-		min: 2,
-		desired: 4,
+		min: 1,
+		desired: 3,
 		max: 10,
 	}
 };

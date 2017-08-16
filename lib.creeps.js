@@ -42,6 +42,18 @@ var findRepairableWall = function(creep){
 		filter: (s) => s.structureType == STRUCTURE_WALL && s.hits < Math.floor(s.hitsMax / 50000)
 	});
 
+	if (!walls){
+		walls = creep.room.find(FIND_STRUCTURES, {
+			filter: (s) => s.structureType == STRUCTURE_WALL && s.hits < Math.floor(s.hitsMax / 100000)
+		})
+	}
+
+	if (!walls){
+		walls = creep.room.find(FIND_STRUCTURES, {
+			filter: (s) => s.structureType == STRUCTURE_WALL && s.hits < Math.floor(s.hitsMax / 200000)
+		})
+	}
+
 	return walls[0];
 }
 
@@ -51,6 +63,14 @@ var findClosestEnergyDepotNotFull = function(creep){
 	});
 
 	return structure;
+}
+
+var findClosestTowerNotFull = function(creep){
+	tower = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+		filter: (t) => t.structureType == STRUCTURE_TOWER && t.energy < t.energyCapacity
+	});
+
+	return tower;
 }
 
 var harvest = function(creep, target){
@@ -80,6 +100,7 @@ var repair = function(creep, structure){
 }
 
 var transfer = function(creep, target){
+
 	switch (creep.transfer(target, RESOURCE_ENERGY)){
 		case ERR_NOT_IN_RANGE:
 			creep.moveTo(target, style.path);
@@ -87,10 +108,37 @@ var transfer = function(creep, target){
 		case ERR_FULL:
 			creep.say('Target Full!');
 			break;
+		case OK:
+				//recordEnergyEfficiency(creep);
+				break;
 		default:
 			//creep.say('Transfer');
 			break;
 	}
+}
+
+var recordEnergyEfficiency = function(creep){
+	console.log(creep.name + " recording efficiency");
+	// If the creep hasn't finished a full transfer, don't record
+	if (creep.carry.energy != 0){
+		return;
+	}
+
+	console.log(creep.name + " actually recoding efficiency");
+
+	// If this is the first complete transfer, initialize it
+	if (!creep.memory.energyTransported){
+		creep.memory.energyTransported = 0;
+	}
+
+	var lifeTime = 1500 - creep.ticksToLive;
+
+	// This assumes a creep will never go into transfer mode after gathering
+	// less than maximum energy
+	creep.memory.energyTransported += creep.carryCapacity;
+
+	console.log(creep.memory.energyTransported);
+
 }
 
 module.exports = {
@@ -101,6 +149,7 @@ module.exports = {
 	findClosestRepairableStructure: findClosestRepairableStructure,
 	findClosestRepairableStructureNotWall: findClosestRepairableStructureNotWall,
 	findClosestEnergyDepotNotFull: findClosestEnergyDepotNotFull,
+	findClosestTowerNotFull: findClosestTowerNotFull,
 	findRepairableWall: findRepairableWall,
 	build: build,
 	harvest: harvest,
