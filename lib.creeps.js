@@ -43,15 +43,15 @@ var findRepairableWall = function(creep){
 		filter: (s) => s.structureType == STRUCTURE_WALL && s.hits < Math.floor(s.hitsMax / 50000)
 	});
 
-	if (!walls){
+	if (walls.length == 0){
 		walls = creep.room.find(FIND_STRUCTURES, {
-			filter: (s) => s.structureType == STRUCTURE_WALL && s.hits < Math.floor(s.hitsMax / 100000)
+			filter: (s) => s.structureType == STRUCTURE_WALL && s.hits < Math.floor(s.hitsMax / 25000)
 		})
 	}
 
-	if (!walls){
+	if (walls.length == 0){
 		walls = creep.room.find(FIND_STRUCTURES, {
-			filter: (s) => s.structureType == STRUCTURE_WALL && s.hits < Math.floor(s.hitsMax / 200000)
+			filter: (s) => s.structureType == STRUCTURE_WALL && s.hits < Math.floor(s.hitsMax / 15000)
 		})
 	}
 
